@@ -1,33 +1,63 @@
-# Satellite Imagery-Based Property Valuation
+# Satellite Imagery-Based Real Estate Valuation
 
 ## Project Overview
-This project implements a **Multimodal Regression Pipeline** that predicts property prices using:
-1.  **Tabular Data:** House features (Bedrooms, Square Footage, Year Built).
-2.  **Visual Data:** Satellite Imagery (captured via Stadia Maps Static API).
+This project implements a **Multimodal Neural Network** to value real estate properties by combining traditional tabular data (bedrooms, square footage, year built) with satellite imagery. This approach quantifies the "location value" of a property by visually analyzing its surroundings (greenery, density, proximity to highways) using Computer Vision.
+
+## Key Features
+*   **Multimodal Architecture**: Fuses a ResNet-18 CNN (for images) with a Multi-Layer Perceptron (for tabular specs).
+*   **Visual Forensics**: Uses Grad-CAM to visualize what features (trees vs. pavement) drive property value.
+*   **Geospatial Analysis**: Incorporates Latitude/Longitude to map price hotspots.
+*   **Log-Price Modeling**: handles the skewed distribution of high-value properties.
 
 ## Repository Structure
-- `data/`: Contains `train.csv`, `test.csv`, and the `images/` directory.
-- `model_training.ipynb`: **The Main Code**. Trains the Multimodal Neural Network (ResNet18 + MLP) and generates predictions.
-- `preprocessing.ipynb`: Exploratory Data Analysis (EDA) and visualization generation.
-- `data_fetcher.py`: Script used to download satellite imagery.
-- `project_report_content.txt`: Text content for the final project report.
-- `report_structure.md`: Outline for the report.
-- `requirements.txt`: List of Python dependencies.
+```
+.
+├── 23117140_final.csv     # Final Predictions Submission for Test Set
+├── 23117140_report.pdf    # Comprehensive Project Report
+├── data_fetcher.py        # Script to download satellite images from Google/Mapbox
+├── model_training.ipynb   # Main notebook: Training, Validation, and Explanation (Grad-CAM)
+├── preprocessing.ipynb    # Notebook for EDA and generating visualizations
+├── requirements.txt       # Python dependencies
+└── README.md              # This documentation
+```
 
-## How to Run (Kaggle)
-1.  **Upload Data:** Upload the `data` folder to your Kaggle dataset.
-2.  **Upload Code:** Upload `model_training.ipynb` to Kaggle (or copy-paste its content).
-3.  **Run All:** Execute the notebook cells.
-    - **Step 1:** Training (Baselines + Deep Learning).
-    - **Step 2:** Evaluation (RMSE/R2 Scores).
-    - **Step 3:** Visual Analysis (Grad-CAM maps).
-    - **Step 4:** Submission (Generates `submission.csv`).
+## Setup Instructions
 
-## Requirements
-- Python 3.8+
-- PyTorch & torchvision
-- pandas, numpy, scikit-learn
-- PIL (Pillow) & opencv-python
+### 1. Environment Setup
+Create a virtual environment and install the required dependencies:
+```bash
+python -m venv venv
+source venv/bin/activate
+pip install -r requirements.txt
+```
 
-## Authors
-- [Your Name]
+### 2. Data Acquisition
+This project requires a dataset of house metadata (`train.csv`) and corresponding satellite images.
+To download images (if you have an API key):
+```bash
+python data_fetcher.py
+```
+*Note: Ensure you have a valid Google Maps Static API key stored in a `.env` file as `GOOGLE_MAPS_API_KEY`.*
+
+## Usage
+
+### Training the Model
+Open `model_training.ipynb` in Jupyter Notebook/Lab:
+1.  **Run All Cells** to:
+    *   Load and preprocess the dataset.
+    *   Train the Multimodal Network (ResNet + MLP).
+    *   Compare performance against an XGBoost baseline.
+    *   Generate a `submission.csv` (renamed to `23117140_final.csv`).
+
+### Visual Analysis (EDA & Forensics)
+Run `preprocessing.ipynb` to generate the project's visual artifacts:
+*   Price Distribution Histograms
+*   Geospatial Price Maps
+*   Sample Image Grids
+*   Grad-CAM Explanation Heatmaps
+
+## Results
+The multimodal model demonstrates that visual signals from satellite imagery provide a measurable improvement in valuation accuracy over tabular-only baselines, specifically by capturing neighborhood context (density, greenery) that simple metadata misses.
+
+## License
+[MIT License](LICENSE)
