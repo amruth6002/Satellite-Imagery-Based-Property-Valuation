@@ -6,28 +6,28 @@ This project implements a **Multimodal Regression Pipeline** that predicts prope
 2.  **Visual Data:** Satellite Imagery (captured via Stadia Maps Static API).
 
 ## Repository Structure
-- `data/`: Contains `train.csv`, `test.csv`, and the `images/` directory (~8,000 images).
-- `notebooks/`:
-  - `preprocessing.ipynb`: Data cleaning and EDA.
-  - `model_training.ipynb`: The main Multimodal Neural Network training loop.
-- `src/`: Python scripts used for data acquisition.
-- `report_structure.md`: Outline for the final project report.
+- `data/`: Contains `train.csv`, `test.csv`, and the `images/` directory.
+- `model_training.ipynb`: **The Main Code**. Trains the Multimodal Neural Network (ResNet18 + MLP) and generates predictions.
+- `preprocessing.ipynb`: Exploratory Data Analysis (EDA) and visualization generation.
+- `data_fetcher.py`: Script used to download satellite imagery.
+- `project_report_content.txt`: Text content for the final project report.
+- `report_structure.md`: Outline for the report.
+- `requirements.txt`: List of Python dependencies.
 
 ## How to Run (Kaggle)
-1.  **Upload Data:** Upload the `data` folder (or `project_upload.zip`) to your Kaggle dataset.
-2.  **Open Notebook:** Open `notebooks/model_training.ipynb`.
-3.  **Run All:** Execute the cells.
-    - The model uses **ResNet18** (Pretrained) for images.
-    - It uses **HuberLoss** for robust regression.
-    - It will output a `submission.csv` file.
+1.  **Upload Data:** Upload the `data` folder to your Kaggle dataset.
+2.  **Upload Code:** Upload `model_training.ipynb` to Kaggle (or copy-paste its content).
+3.  **Run All:** Execute the notebook cells.
+    - **Step 1:** Training (Baselines + Deep Learning).
+    - **Step 2:** Evaluation (RMSE/R2 Scores).
+    - **Step 3:** Visual Analysis (Grad-CAM maps).
+    - **Step 4:** Submission (Generates `submission.csv`).
 
 ## Requirements
 - Python 3.8+
-- PyTorch
-- torchvision
+- PyTorch & torchvision
 - pandas, numpy, scikit-learn
-- PIL (Pillow)
-- opencv-python
+- PIL (Pillow) & opencv-python
 
 ## Authors
 - [Your Name]
